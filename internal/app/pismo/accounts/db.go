@@ -25,7 +25,7 @@ func createAccount(db *gorm.DB, req *CreateAccountRequest) (string, error) {
 }
 
 // fetchAccount fetches the first matching account's data from the DB based on the given account ID
-func fetchAccount(db *gorm.DB, accID string) (*models.Account, error) {
+func FetchAccount(db *gorm.DB, accID string) (*models.Account, error) {
 	var acc models.Account
 	result := db.First(&acc, accID)
 	if result.Error != nil {

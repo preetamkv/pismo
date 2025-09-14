@@ -48,7 +48,7 @@ func createAccountHandler(app *pismo.App) http.HandlerFunc {
 func getAccountHandler(app *pismo.App) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id := chi.URLParam(r, "id")
-		acc, err := fetchAccount(app.DB, id)
+		acc, err := FetchAccount(app.DB, id)
 		if err != nil {
 			http.Error(w, "invalid JSON", http.StatusInternalServerError)
 		}
