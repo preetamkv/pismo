@@ -2,7 +2,7 @@ package models
 
 type Account struct {
 	AccountID      string `json:"account_id" gorm:"primaryKey"`
-	DocumentNumber string `json:"document_number"`
+	DocumentNumber string `json:"document_number" gorm:"unique"`
 }
 
 type Transaction struct {
