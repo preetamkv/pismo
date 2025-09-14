@@ -20,6 +20,7 @@ func Routes(a *pismo.App) http.Handler {
 
 }
 
+// createTransactionHandler handles POST /transactions
 func createTransactionHandler(app *pismo.App) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 

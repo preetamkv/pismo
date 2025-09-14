@@ -4,12 +4,14 @@ import (
 	"fmt"
 )
 
+// Model for the create transaction request body
 type CreateTransactionRequest struct {
 	AccountID     string `json:"account_id"`
 	OperationType uint8  `json:"operation_type_id"`
 	Amount        int64  `json:"amount"`
 }
 
+// Validate validates the body of create transaction request
 func (r *CreateTransactionRequest) Validate() error {
 	if r.AccountID == "" {
 		return fmt.Errorf("account ID is required")
@@ -22,7 +24,7 @@ func (r *CreateTransactionRequest) Validate() error {
 	}
 	/*
 		Expecting amount to be positive in the request from the client,
-		if the expectation is wrong, one can update validation here.
+		If the expectation is wrong, one can update validation here.
 		It will have multiple conditions based on OpertionType value.
 	*/
 

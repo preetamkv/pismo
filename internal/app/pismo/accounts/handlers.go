@@ -21,6 +21,7 @@ func Routes(a *pismo.App) http.Handler {
 
 }
 
+// createAccountHandler handles POST /accounts
 func createAccountHandler(app *pismo.App) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Validate the incoming request body
@@ -39,10 +40,11 @@ func createAccountHandler(app *pismo.App) http.HandlerFunc {
 		if err != nil {
 			http.Error(w, "Unable to create account", http.StatusInternalServerError)
 		}
-		fmt.Fprintf(w, "Created Account %s\n", &accID)
+		fmt.Fprintf(w, "Created Account %s\n", accID)
 	}
 }
 
+// getAccountHandler handles GET /accounts/{id}
 func getAccountHandler(app *pismo.App) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id := chi.URLParam(r, "id")
@@ -50,6 +52,6 @@ func getAccountHandler(app *pismo.App) http.HandlerFunc {
 		if err != nil {
 			http.Error(w, "invalid JSON", http.StatusInternalServerError)
 		}
-		fmt.Fprintf(w, "List account %v\n", acc)
+		fmt.Fprintf(w, "List account %v\n", *acc)
 	}
 }
