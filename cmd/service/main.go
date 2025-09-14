@@ -7,7 +7,6 @@ import (
 	"github.com/preetamkv/pismo/internal/app/pismo"
 	"github.com/preetamkv/pismo/internal/app/pismo/accounts"
 	"github.com/preetamkv/pismo/internal/app/pismo/transactions"
-	"github.com/preetamkv/pismo/internal/pkg/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -20,7 +19,6 @@ func main() {
 		fmt.Println("failed to connect database:", err)
 		return
 	}
-	db.AutoMigrate(&models.Account{}, &models.Transaction{})
 
 	sqlDB, err := db.DB()
 	if err != nil {
