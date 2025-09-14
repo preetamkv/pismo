@@ -7,6 +7,7 @@ import (
 	"github.com/preetamkv/pismo/internal/app/pismo"
 	"github.com/preetamkv/pismo/internal/app/pismo/accounts"
 	"github.com/preetamkv/pismo/internal/app/pismo/transactions"
+	"github.com/preetamkv/pismo/internal/pkg/middleware"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -30,6 +31,7 @@ func main() {
 	app := &pismo.App{DB: db}
 
 	r := chi.NewRouter()
+	r.Use(middleware.JSONOnly)
 
 	r.Mount("/accounts", accounts.Routes(app))
 	r.Mount("/transactions", transactions.Routes(app))
