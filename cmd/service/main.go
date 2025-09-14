@@ -8,15 +8,18 @@ import (
 	"github.com/preetamkv/pismo/internal/app/pismo/accounts"
 	"github.com/preetamkv/pismo/internal/app/pismo/transactions"
 	"github.com/preetamkv/pismo/internal/pkg/middleware"
-	"gorm.io/driver/sqlite"
+	"github.com/preetamkv/pismo/internal/pkg/models"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
 	"github.com/go-chi/chi/v5"
 )
 
 func main() {
+	dsn := "host=c-postgrescluster.dlksek2fawx2u2.postgres.cosmos.azure.com port=5432 dbname=citus user=citus password=H@Sh1CoR3! sslmode=require"
+
 	//Establish connectivity with the DB
-	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("failed to connect database:", err)
 		return
@@ -29,6 +32,10 @@ func main() {
 		return
 	}
 	defer sqlDB.Close()
+
+	db.Exec("CREATE SCHEMA IF NOT EXISTS pismo;")
+	db.Exec("SET search_path TO pismo;")
+	db.AutoMigrate(&models.Account{}, &models.Transaction{})
 
 	// Storing the DB Client in App so that we can reuse it again and again.
 	app := &pismo.App{DB: db}
