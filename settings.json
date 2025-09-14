@@ -1,0 +1,13 @@
+{
+  "database": {
+    "host": "**********",
+    "port": 5432,
+    "user": "citus",
+    "password": "**********",
+    "dbname": "citus",
+    "sslmode": "require"
+  },
+  "app": {
+    "schema": "pismo"
+  }
+}
