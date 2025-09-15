@@ -23,7 +23,8 @@ And of course Pismo itself is open source with a [public repository][pismo] on G
 Pismo requires [Golang] latest and [Docker] to run
 
 DB is already created and [settings.json](https://github.com/preetamkv/pismo/blob/master/settings.json) needs to be updated with the host and password details\
-Update the settings.json file before running [build.sh](https://github.com/preetamkv/pismo/blob/master/build.sh)
+Update the settings.json file before running [build.sh](https://github.com/preetamkv/pismo/blob/master/build.sh)\
+Preferrably run on WSL or Mac
 
 [build.sh](https://github.com/preetamkv/pismo/blob/master/build.sh) file takes care of
 - Building code
