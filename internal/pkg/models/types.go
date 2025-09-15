@@ -8,9 +8,9 @@ type Account struct {
 
 // Model for Transaction Table
 type Transaction struct {
-	TransactionID string `json:"transaction_id" gorm:"primaryKey"`
-	AccountID     string `json:"account_id"`
-	OperationType uint8  `json:"operation_type"`
-	Amount        int64  `json:"amount"`
-	EventDate     string `json:"event_date"`
+	TransactionID string  `json:"transaction_id" gorm:"primaryKey"`
+	AccountID     string  `json:"account_id"`
+	OperationType int     `json:"operation_type"`
+	Amount        float64 `json:"amount"`
+	EventDate     string  `json:"event_date"`
 }

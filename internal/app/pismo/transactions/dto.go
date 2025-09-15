@@ -6,9 +6,13 @@ import (
 
 // Model for the create transaction request body
 type CreateTransactionRequest struct {
-	AccountID     string `json:"account_id"`
-	OperationType uint8  `json:"operation_type_id"`
-	Amount        int64  `json:"amount"`
+	AccountID     string  `json:"account_id"`
+	OperationType int     `json:"operation_type_id"`
+	Amount        float64 `json:"amount"`
+}
+
+type CreateTransactionResponse struct {
+	TransactionID string `json:"transaction_id"`
 }
 
 // Validate validates the body of create transaction request

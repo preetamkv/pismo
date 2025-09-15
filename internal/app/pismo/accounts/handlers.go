@@ -2,7 +2,6 @@ package accounts
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/preetamkv/pismo/internal/app/pismo"
@@ -14,7 +13,7 @@ import (
 func Routes(a *pismo.App) http.Handler {
 	r := chi.NewRouter()
 
-	r.Post("/", createAccountHandler(a)) // GET /accounts
+	r.Post("/", createAccountHandler(a)) // POST /accounts
 	r.Get("/{id}", getAccountHandler(a)) // GET /accounts/{id}
 
 	return r
@@ -40,7 +39,13 @@ func createAccountHandler(app *pismo.App) http.HandlerFunc {
 		if err != nil {
 			http.Error(w, "Unable to create account", http.StatusInternalServerError)
 		}
-		fmt.Fprintf(w, "Created Account %s\n", accID)
+		resp := CreateAccountResponse{
+			AccountNumber: accID,
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(resp); err != nil {
+			http.Error(w, "failed to encode response", http.StatusInternalServerError)
+		}
 	}
 }
 
@@ -50,8 +55,11 @@ func getAccountHandler(app *pismo.App) http.HandlerFunc {
 		id := chi.URLParam(r, "id")
 		acc, err := FetchAccount(app.DB, id)
 		if err != nil {
-			http.Error(w, "invalid JSON", http.StatusInternalServerError)
+			http.Error(w, "failed to fetch account: "+err.Error(), http.StatusInternalServerError)
 		}
-		fmt.Fprintf(w, "List account %v\n", *acc)
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(acc); err != nil {
+			http.Error(w, "failed to encode response", http.StatusInternalServerError)
+		}
 	}
 }

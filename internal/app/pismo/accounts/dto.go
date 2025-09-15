@@ -9,6 +9,10 @@ type CreateAccountRequest struct {
 	DocumentNumber string `json:"document_number"`
 }
 
+type CreateAccountResponse struct {
+	AccountNumber string `json:"account_number"`
+}
+
 // Validate validates the body of create account request
 func (r *CreateAccountRequest) Validate() error {
 	if r.DocumentNumber == "" {

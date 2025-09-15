@@ -21,7 +21,7 @@ func createTransaction(db *gorm.DB, req *CreateTransactionRequest) (string, erro
 		return "", fmt.Errorf("account doesn't exist")
 	}
 
-	var amt int64
+	amt := req.Amount
 	if req.OperationType <= 3 {
 		amt = req.Amount * -1 // Ensure amount is changed to negative based on operation type
 	}

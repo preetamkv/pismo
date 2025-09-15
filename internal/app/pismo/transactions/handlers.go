@@ -2,7 +2,6 @@ package transactions
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/preetamkv/pismo/internal/app/pismo"
@@ -41,6 +40,12 @@ func createTransactionHandler(app *pismo.App) http.HandlerFunc {
 			http.Error(w, "unable to create Transaction", http.StatusInternalServerError)
 		}
 
-		fmt.Fprintf(w, "Transaction created %s\n", txID)
+		resp := CreateTransactionResponse{
+			TransactionID: txID,
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(resp); err != nil {
+			http.Error(w, "failed to encode response", http.StatusInternalServerError)
+		}
 	}
 }
