@@ -13,7 +13,7 @@ resource "azurerm_cosmosdb_postgresql_cluster" "pg_cluster" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
-  administrator_login_password = "H@Sh1CoR3!"
+  administrator_login_password = "**********"
   coordinator_storage_quota_in_mb = 131072        # 128 GB
   coordinator_vcore_count         = 2
 
