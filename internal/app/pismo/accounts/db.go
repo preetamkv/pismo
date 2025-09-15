@@ -1,8 +1,6 @@
 package accounts
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 	"github.com/preetamkv/pismo/internal/pkg/models"
 	"gorm.io/gorm"
@@ -19,7 +17,7 @@ func createAccount(db *gorm.DB, req *CreateAccountRequest) (string, error) {
 	// Store the data in DB
 	err := db.Create(acc).Error
 	if err != nil {
-		return "", fmt.Errorf("failed to create Account")
+		return "", err
 	}
 	return acc.AccountID, nil
 }
@@ -29,7 +27,7 @@ func FetchAccount(db *gorm.DB, accID string) (*models.Account, error) {
 	var acc models.Account
 	result := db.First(&acc, "account_id = ?", accID)
 	if result.Error != nil {
-		return &models.Account{}, fmt.Errorf("unable to fetch Account")
+		return &models.Account{}, result.Error
 	}
 	return &acc, nil
 }

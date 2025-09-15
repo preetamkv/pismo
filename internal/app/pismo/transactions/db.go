@@ -1,11 +1,9 @@
 package transactions
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/preetamkv/pismo/internal/app/pismo/accounts"
 	"github.com/preetamkv/pismo/internal/pkg/models"
 
 	"gorm.io/gorm"
@@ -14,12 +12,6 @@ import (
 // createTransaction creates a new Transaction entry in the DB
 func createTransaction(db *gorm.DB, req *CreateTransactionRequest) (string, error) {
 	txID := uuid.New() // Generate transaction ID
-
-	// Add check if the account exists.
-	_, err := accounts.FetchAccount(db, req.AccountID)
-	if err != nil {
-		return "", fmt.Errorf("account doesn't exist")
-	}
 
 	amt := req.Amount
 	if req.OperationType <= 3 {
@@ -38,9 +30,9 @@ func createTransaction(db *gorm.DB, req *CreateTransactionRequest) (string, erro
 	}
 
 	// Store the transaction in DB
-	err = db.Create(tx).Error
+	err := db.Create(tx).Error
 	if err != nil {
-		return "", fmt.Errorf("failed to create Transaction")
+		return "", err
 	}
 	return tx.TransactionID, nil
 }

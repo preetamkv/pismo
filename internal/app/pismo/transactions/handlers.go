@@ -3,8 +3,10 @@ package transactions
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/preetamkv/pismo/internal/app/pismo"
+	"github.com/preetamkv/pismo/internal/app/pismo/accounts"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -31,6 +33,17 @@ func createTransactionHandler(app *pismo.App) http.HandlerFunc {
 		}
 		if err := req.Validate(); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+
+		// Add check if the account exists.
+		_, err := accounts.FetchAccount(app.DB, req.AccountID)
+		if err != nil {
+			if strings.Contains(err.Error(), "record not found") {
+				http.Error(w, "Account doesnt exist", http.StatusNotFound)
+				return
+			}
+			http.Error(w, "Unable to fetch Account", http.StatusInternalServerError)
 			return
 		}
 
