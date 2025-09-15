@@ -1,1 +1,5 @@
 settings_secrets.json
+.terraform*
+*.tfstate
+*.gpg
+service
