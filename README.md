@@ -16,6 +16,7 @@ And of course Pismo itself is open source with a [public repository][pismo] on G
 - [cmd/service](https://github.com/preetamkv/pismo/tree/master/cmd/service) has the logic for server initialization
 - [internal/app/pismo](https://github.com/preetamkv/pismo/tree/master/internal/app/pismo) has the business logic for the APIs
 - [intenal/pkg](https://github.com/preetamkv/pismo/tree/master/internal/pkg) has the helpers required for the business logic
+- [api.yaml](https://github.com/preetamkv/pismo/blob/master/api.yaml) contains the API Spec for this service
 
 ## Running
 
