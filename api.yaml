@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: Pismo Account & Transaction APIs
+  version: 1.0.0
+  description: API for creating accounts and transactions and retrieving account information.
+
+servers:
+  - url: https://localhost:8080
+
+paths:
+  /accounts:
+    post:
+      summary: Create an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document_number:
+                  type: string
+              required:
+                - document_number
+      responses:
+        '200':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_number:
+                    type: string
+        '409':
+          description: Duplicate Document Number
+
+  /accounts/{accountId}:
+    get:
+      summary: Get account information
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_id:
+                    type: string
+                  document_number:
+                    type: string
+        '404':
+          description: Account doesn't exist
+
+  /transactions:
+    post:
+      summary: Create a transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_id:
+                  type: string
+                operation_type_id:
+                  type: integer
+                amount:
+                  type: number
+                  format: float
+              required:
+                - account_id
+                - operation_type_id
+                - amount
+      responses:
+        '200':
+          description: Transaction created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction_id:
+                    type: string
+        '404':
+          description: Account doesn't exist
