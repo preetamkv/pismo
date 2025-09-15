@@ -12,10 +12,10 @@ Pismo helps handle accounts and transactions APIs for a bank/agency
 And of course Pismo itself is open source with a [public repository][pismo] on GitHub
 ## Development
 
-[pismo.tf](https://github.com/preetamkv/pismo/blob/master/pismo.tf) is used to generate the DB cluster in Azure CosmosDB
-[cmd/service](https://github.com/preetamkv/pismo/tree/master/cmd/service) has the logic for server initialization
-[internal/app/pismo](https://github.com/preetamkv/pismo/tree/master/internal/app/pismo) has the business logic for the APIs
-[intenal/pkg](https://github.com/preetamkv/pismo/tree/master/internal/pkg) has the helpers required for the business logic
+- [pismo.tf](https://github.com/preetamkv/pismo/blob/master/pismo.tf) is used to generate the DB cluster in Azure CosmosDB
+- [cmd/service](https://github.com/preetamkv/pismo/tree/master/cmd/service) has the logic for server initialization
+- [internal/app/pismo](https://github.com/preetamkv/pismo/tree/master/internal/app/pismo) has the business logic for the APIs
+- [intenal/pkg](https://github.com/preetamkv/pismo/tree/master/internal/pkg) has the helpers required for the business logic
 
 ## Running
 
