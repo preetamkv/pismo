@@ -36,13 +36,15 @@ func createTransactionHandler(app *pismo.App) http.HandlerFunc {
 			return
 		}
 
-		// Add check if the account exists.
+		// Check if the account exists
 		_, err := accounts.FetchAccount(app.DB, req.AccountID)
 		if err != nil {
+			// If Account doesn't exist, response 404
 			if strings.Contains(err.Error(), "record not found") {
 				http.Error(w, "Account doesnt exist", http.StatusNotFound)
 				return
 			}
+			// For other errors
 			http.Error(w, "Unable to fetch Account", http.StatusInternalServerError)
 			return
 		}
@@ -53,6 +55,7 @@ func createTransactionHandler(app *pismo.App) http.HandlerFunc {
 			http.Error(w, "unable to create Transaction", http.StatusInternalServerError)
 		}
 
+		// Generate and send JSON response
 		resp := CreateTransactionResponse{
 			TransactionID: txID,
 		}

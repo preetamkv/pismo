@@ -11,6 +11,7 @@ type CreateTransactionRequest struct {
 	Amount        float64 `json:"amount"`
 }
 
+// Model for create transaction response body
 type CreateTransactionResponse struct {
 	TransactionID string `json:"transaction_id"`
 }

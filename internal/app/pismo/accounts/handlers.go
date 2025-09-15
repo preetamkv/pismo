@@ -38,13 +38,17 @@ func createAccountHandler(app *pismo.App) http.HandlerFunc {
 		// Add Account in the DB
 		accID, err := createAccount(app.DB, &req)
 		if err != nil {
+			// Respond Conflict if document number already exists
 			if strings.Contains(err.Error(), "duplicate key value") {
 				http.Error(w, "Duplicate Document Number", http.StatusConflict)
 				return
 			}
+			// For other errors
 			http.Error(w, "Unable to create account", http.StatusInternalServerError)
 			return
 		}
+
+		// Generate and send JSON response
 		resp := CreateAccountResponse{
 			AccountNumber: accID,
 		}
@@ -68,6 +72,8 @@ func getAccountHandler(app *pismo.App) http.HandlerFunc {
 			http.Error(w, "failed to fetch account: "+err.Error(), http.StatusInternalServerError)
 			return
 		}
+
+		// Generate and send JSON response
 		w.Header().Set("Content-Type", "application/json")
 		if err := json.NewEncoder(w).Encode(acc); err != nil {
 			http.Error(w, "failed to encode response", http.StatusInternalServerError)

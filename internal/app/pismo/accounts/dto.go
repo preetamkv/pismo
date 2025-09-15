@@ -9,6 +9,7 @@ type CreateAccountRequest struct {
 	DocumentNumber string `json:"document_number"`
 }
 
+// Model for the create account response body
 type CreateAccountResponse struct {
 	AccountNumber string `json:"account_number"`
 }
